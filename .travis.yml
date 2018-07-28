@@ -1,0 +1,13 @@
+language: java
+install:
+  - sudo chmod 777 gradlew
+jdk:
+  - openjdk8
+script:
+  - sudo chmod 777 gradlew
+  - sudo ./gradlew setupDecompWorkspace
+sudo: true
+addons:
+  apt:
+    packages:
+      - oracle-java8-installer
