@@ -6,6 +6,7 @@ jdk:
 script:
   - sudo chmod 777 gradlew
   - sudo ./gradlew setupDecompWorkspace
+  - sudo ./gradlew build
 sudo: true
 addons:
   apt:
