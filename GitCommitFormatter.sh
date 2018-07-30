@@ -4,7 +4,8 @@ message="";
 
 #2 > GitFormatError.txt
 
-echo "欢迎使用gitCommit格式化工具"
+echo ""
+echo "  欢迎使用gitCommit格式化工具"
 echo ""
 echo "    (0) feat:新功能（feature）"
 echo "    (1) fix :修补bug"
@@ -14,11 +15,11 @@ echo "    (4) refactor:重构（既不新增也不修复bug）"
 echo "    (5) perf:提高性能"
 echo "    (6) test:测试相关更新"
 echo "    (7) chore:构建过程或辅助工具的变动"
-
-typeArray=("feat" "fix" "docs" "style" "refactor" "perf" "test" "chore")
-
+echo "    (8) cleanup:不影响代码逻辑的提交"
+echo "    (9) tracking:跟踪相关提交"
 echo ""
 
+typeArray=("feat" "fix" "docs" "style" "refactor" "perf" "test" "chore" "cleanup" "tracking")
 
 inputType(){
 
@@ -65,7 +66,7 @@ inputSubject(){
 
 	if [[ ${#subject} -gt 0 && $(( ${#message} + ${#subject} )) -lt 100 ]]
 	then
-		message="${message}${subject}"
+		message="${message} ${subject}"
 	else
 		echo "  [Error]没有描述或描述过长"
 		inputSubject
@@ -87,9 +88,8 @@ inputBody(){
 	fi
 }
 
-inputBody
-echo "  BODY:${body}"
-
+#inputBody
+#echo "  BODY:${body}"
 
 inputFooter(){
 
@@ -105,12 +105,15 @@ inputFooter(){
 	fi
 }
 
-inputFooter
-echo "  FOOTER:${footer}"
+#inputFooter
+#echo "  FOOTER:${footer}"
 
-#echo -e $message
+message="${message}\n#\n#Write body here....\n#\n#BREAKING CHANGE: \n#\n#Closes "
 
-git commit -m "${message}"
+text=$(echo -e "$message")
+
+echo ""
+
+git commit -m "${text}"
+
 git commit --amend
-
-

@@ -22,4 +22,5 @@ build
 eclipse
 run
 
-push.sh
+GitCommitFormatter.sh
+GitPush.sh
