@@ -1,4 +1,4 @@
 package pro.npofsi.rmpescript.runtime;
 
-public class LUALoader {
+public class LUALoader extends Loader {
 }

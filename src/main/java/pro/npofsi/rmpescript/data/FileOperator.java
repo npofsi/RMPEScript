@@ -32,6 +32,7 @@ public class FileOperator {
             out.close();
             return out;
         } catch (IOException e) {
+            RMPEScript.Log.e(e.toString());
             e.printStackTrace();
 
         }
@@ -56,6 +57,7 @@ public class FileOperator {
             }
             in.close();
         } catch (IOException e) {
+            RMPEScript.Log.e(e.toString());
             e.printStackTrace();
         }
         return content;
@@ -75,6 +77,7 @@ public class FileOperator {
             }
             in.close();
         } catch (IOException e) {
+            RMPEScript.Log.e(e.toString());
             e.printStackTrace();
         }
         return content;

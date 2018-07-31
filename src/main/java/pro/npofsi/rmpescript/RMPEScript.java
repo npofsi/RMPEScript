@@ -41,6 +41,8 @@ public class RMPEScript {
 
     public Logger logger;
 
+    public static int randomId(){return (int) Math.ceil(Math.random()*100000);}
+
     @EventHandler
     public void preInit(FMLPreInitializationEvent event)
     {
@@ -54,6 +56,7 @@ public class RMPEScript {
     {
         DataStore.getInstance().init();
         ForgeEventHandler.register();
+        Log.i("RMPEScript starting...");
         // some example code
         //logger.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
 
