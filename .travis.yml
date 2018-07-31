@@ -4,10 +4,10 @@ install:
 jdk:
   - openjdk8
 script:
+  - sudo chmod 777 src/main/resources/mcmod.info
   - sudo chmod 777 gradlew
   - sudo ./gradlew setupDecompWorkspace
   - sudo ./gradlew build
-  - sudo chmod 777 src/main/resources/mcmod.info
 sudo: true
 addons:
   apt:
