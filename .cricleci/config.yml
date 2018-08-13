@@ -23,7 +23,7 @@ jobs:
     
     steps:
       - checkout
-
+      - sudo chmod 777 gradlew
       # run tests!
       - run: sudo ./gradlew build
 
