@@ -34,7 +34,6 @@ public class FileOperator {
         } catch (IOException e) {
             RMPEScript.Log.e(e.toString());
             e.printStackTrace();
-
         }
         return null;
     }
@@ -51,14 +50,18 @@ public class FileOperator {
                 return "";
             }
             BufferedReader in = new BufferedReader(new FileReader(path));
-            content = in.readLine();
-            while (content != null) {
-                content = in.readLine();
+            String cache = in.readLine();
+            while (cache != null) {
+                content +=cache+"\n";
+                cache = in.readLine();
+
             }
             in.close();
         } catch (IOException e) {
             RMPEScript.Log.e(e.toString());
             e.printStackTrace();
+        }finally {
+            RMPEScript.Log.i("Reading file <"+path+">");
         }
         return content;
     }

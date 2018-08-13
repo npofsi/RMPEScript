@@ -8,6 +8,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.AxisAlignedBB;
 import pro.npofsi.rmpescript.data.FileOperator;
+import pro.npofsi.rmpescript.include.modpe.Level;
 
 import java.util.Iterator;
 import java.util.List;
@@ -39,6 +40,7 @@ public class CommandBoom extends CommandBase {
                     continue;
                 }
                 // 顺 ! 间 ! 爆 ! 炸 !
+                //Level.setTile(entity.posX,entity.posY,entity.posZ,"stone",0);
                 player.world.createExplosion(player, entity.posX, entity.posY, entity.posZ, new Integer(args.length==0?"1":args[0]), true);
             }
         } else {

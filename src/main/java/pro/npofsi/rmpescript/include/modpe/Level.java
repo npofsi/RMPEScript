@@ -5,6 +5,8 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import java.util.UUID;
+
 public class Level {
     private static World currentWorld;
     public static void setWorld(World world){
@@ -19,7 +21,9 @@ public class Level {
     public static void explode(double x, double y, double z, double r){
         Level.getWorld().createExplosion(null,x ,y, z, (float)r, true);
     }
-    public static void setTile(int x,int y,int z,String id,int data){
-        Level.getWorld().setTileEntity(new BlockPos(x, y, z), TileEntity.create(Level.getWorld(),new NBTTagCompound()));
-    }
+//    public static void setTile(double x,double y,double z,String id,int data){
+//        NBTTagCompound nbtc=new NBTTagCompound();
+//        nbtc.setUniqueId("id",UUID.fromString(id));
+//        Level.getWorld().setTileEntity(new BlockPos(x, y, z), TileEntity.create(Level.getWorld(),nbtc));
+//    }
 }
