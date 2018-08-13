@@ -6,7 +6,7 @@ jdk:
 script:
   - sudo chmod 777 src/main/resources/mcmod.info
   - sudo chmod 777 gradlew
-  - sudo ./gradlew setupDecompWorkspace
+  - sudo mv '/home/travis/build/npofsi/RMPEScript/src/main/resources/mcmod.info' '/home/travis/build/npofsi/RMPEScript/build/resources/main/mcmod.info'
   - sudo ./gradlew build
 sudo: true
 addons:
