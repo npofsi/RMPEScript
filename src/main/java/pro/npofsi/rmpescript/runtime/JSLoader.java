@@ -10,33 +10,49 @@ import pro.npofsi.rmpescript.runtime.utils.JavaXJS;
 public class JSLoader extends Loader{
 
     private String script,srcName;
-    //private Object ScriptManager= pro.npofsi.rmpescript.runtime.ScriptManager.getInstance();
+//    private Object ScriptManager= pro.npofsi.rmpescript.runtime.ScriptManager.getInstance();
 
     public JSLoader(String srcName,String script){
         this.srcName=srcName;
         this.script=script;
+        this.setName(srcName);
     }
-
+    private Context cx = Context.enter();
     @Override
     public void run(){
         synchronized(ScriptManager.getInstance()){
-            this.setName(srcName);
-            Context cx = Context.enter();
             try {
                 Scriptable scope = cx.initStandardObjects();
-//            JavaXJS.JavaToJS(ForgeEventHandler.getInstance(),"ForgeEventHandler",scope);
-//            JavaXJS.JavaToJS(RMPEScript.Log.class,"Logger",scope);
-//            JavaXJS.JavaToJS(pro.npofsi.rmpescript.,"pro",scope);
-//            ((ScriptableObject) scope).defineProperty("EventHandler",pro.npofsi.rmpescript.broadcast.ForgeEventHandler.class, 0);
-//            ((ScriptableObject) scope).defineProperty("Logger",RMPEScript.Log.class,1);
-                Object result = cx.evaluateString(scope, script, srcName, 1, null);
+                Object result = cx.evaluateString(scope, script, srcName+RMPEScript.randomTag(), 1, null);
                 RMPEScript.Log.i("Script end: "+cx.toString(result));
             }catch (Exception e) {
                 RMPEScript.Log.s(e,"RunTime");
             }finally {
-                cx.exit();
+
             }
         }
+    }
+    public void eval(String code){
+        synchronized(ScriptManager.getInstance()){
+            try {
+                Scriptable scope = cx.initStandardObjects();
+                Object result = cx.evaluateString(scope, code, srcName+RMPEScript.randomTag(), 1, null);
+                RMPEScript.Log.i("Script eval end: "+cx.toString(result));
+            }catch (Exception e) {
+                RMPEScript.Log.s(e,"EvalRunTime");
+            }finally {
 
+            }
+        }
+    }
+    public void remove(){
+        synchronized(ScriptManager.getInstance()){
+            try {
+                cx.exit();
+                this.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

@@ -5,7 +5,7 @@ import pro.npofsi.rmpescript.RMPEScript;
 import java.util.Iterator;
 import java.util.Stack;
 
-public class Hooks {
+public class Hook {
     public static class useItem{
         private useItem(){}
         public static useItem getInstance(){

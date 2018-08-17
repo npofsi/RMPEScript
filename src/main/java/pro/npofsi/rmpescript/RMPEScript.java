@@ -21,6 +21,7 @@ import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.logging.log4j.Logger;
 import pro.npofsi.rmpescript.beta.CommandBoom;
+import pro.npofsi.rmpescript.broadcast.FMLEventHandler;
 import pro.npofsi.rmpescript.broadcast.ForgeEventHandler;
 import pro.npofsi.rmpescript.command.CommandManager;
 import pro.npofsi.rmpescript.common.CommonProxy;
@@ -39,7 +40,7 @@ public class RMPEScript {
     public static final String VERSION = "1.0.0";
 
     @Mod.Instance(RMPEScript.MODID)
-    public RMPEScript instance;
+    public static RMPEScript instance;
 
     @SidedProxy(clientSide = "pro.npofsi.rmpescript.client.ClientProxy",
             serverSide = "pro.npofsi.rmpescript.common.CommonProxy")
@@ -51,12 +52,7 @@ public class RMPEScript {
     public static String randomTag(){return "@"+randomId();}
 
     @EventHandler
-    public void preInit(FMLPreInitializationEvent event)
-    {
-        //TODO
-
-        Log.setServer(event.getModLog());
-    }
+    public void preInit(FMLPreInitializationEvent event) { Log.setServer(event.getModLog()); }
 
     @EventHandler
     public void init(FMLInitializationEvent event)
@@ -66,32 +62,20 @@ public class RMPEScript {
         Log.i("RMPEScript starting...");
         ScriptFileManager.getInstance().refresh();
         ScriptManager.getInstance().runAllScripts(null);
-        // some example code
-        //logger.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
-
+        FMLEventHandler.runCallBack("init",event);
     }
 
     @EventHandler
-    public void postInit(FMLPostInitializationEvent event)
-    {
-        //TODO
-        //
-
-    }
+    public void postInit(FMLPostInitializationEvent event) { }
 
     @EventHandler
     public void serverStarting(FMLServerStartingEvent event) {
+
         Intent.setServer(event.getServer());
-        CommandManager.getInstance().refresh((ServerCommandManager) event.getServer().getCommandManager());
+        CommandManager.getInstance().refresh((ServerCommandManager) Intent.getServer().getCommandManager());
         CommandManager.getInstance().register(new CommandRMPE());
         Level.setWorld(event.getServer().getEntityWorld());
-
-//        CommandManager.getInstance().register(new CommandBoom());
-//        ForgeEventHandler.getInstance().registerCallback("pickupItem", new ForgeEventHandler.EntityItemPickupEventCallback() {
-//            public void call(EntityItemPickupEvent event) {
-//                Level.explode(event.getEntity().posX,event.getEntity().posY,event.getEntity().posZ,10);
-//            }
-//        });
+        FMLEventHandler.runCallBack("serverStarting",event);
     }
 
 
