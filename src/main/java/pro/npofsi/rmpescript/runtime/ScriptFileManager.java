@@ -22,7 +22,7 @@ public class ScriptFileManager {
         ScriptManager.getInstance().refresh(refreshFromFiles());
     }
     public Map<String,String> refreshFromFiles(){
-        File[] fs=DataStore.getInstance().getScriptDir().listFiles(new DataStore.isFileFilter());
+        File[] fs=DataStore.getInstance().getScriptDir().listFiles(new DataStore.fileTypeFilter("js"));
         Map<String,String> scripts=new TreeMap<String, String>();
         for (File f : fs){
             try {

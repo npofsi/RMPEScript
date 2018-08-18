@@ -63,5 +63,12 @@ public class DataStore {
             return f.isFile();
         }
     }
+    public static class fileTypeFilter implements FileFilter {
+        String type;
+        public fileTypeFilter(String type){this.type=type;}
+        public boolean accept(File f){
+            return f.isFile()&&f.getName().endsWith("."+type);
+        }
+    }
 }
 

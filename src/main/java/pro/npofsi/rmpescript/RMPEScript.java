@@ -62,7 +62,7 @@ public class RMPEScript {
         Log.i("RMPEScript starting...");
         ScriptFileManager.getInstance().refresh();
         ScriptManager.getInstance().runAllScripts(null);
-        FMLEventHandler.runCallBack("init",event);
+        FMLEventHandler.getInstance().runCallBack("init",event);
     }
 
     @EventHandler
@@ -75,7 +75,7 @@ public class RMPEScript {
         CommandManager.getInstance().refresh((ServerCommandManager) Intent.getServer().getCommandManager());
         CommandManager.getInstance().register(new CommandRMPE());
         Level.setWorld(event.getServer().getEntityWorld());
-        FMLEventHandler.runCallBack("serverStarting",event);
+        FMLEventHandler.getInstance().runCallBack("serverStarting",event);
     }
 
 

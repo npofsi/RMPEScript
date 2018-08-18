@@ -10,6 +10,7 @@ import pro.npofsi.rmpescript.runtime.utils.JavaXJS;
 public class JSLoader extends Loader{
 
     private String script,srcName;
+    private Context cx=null;
 //    private Object ScriptManager= pro.npofsi.rmpescript.runtime.ScriptManager.getInstance();
 
     public JSLoader(String srcName,String script){
@@ -17,10 +18,11 @@ public class JSLoader extends Loader{
         this.script=script;
         this.setName(srcName);
     }
-    private Context cx = Context.enter();
+
     @Override
     public void run(){
         synchronized(ScriptManager.getInstance()){
+            cx = Context.enter();
             try {
                 Scriptable scope = cx.initStandardObjects();
                 Object result = cx.evaluateString(scope, script, srcName+RMPEScript.randomTag(), 1, null);
@@ -34,7 +36,7 @@ public class JSLoader extends Loader{
     }
     public void eval(String code){
         synchronized(ScriptManager.getInstance()){
-            try {
+            if(cx != null)try {
                 Scriptable scope = cx.initStandardObjects();
                 Object result = cx.evaluateString(scope, code, srcName+RMPEScript.randomTag(), 1, null);
                 RMPEScript.Log.i("Script eval end: "+cx.toString(result));
@@ -48,7 +50,7 @@ public class JSLoader extends Loader{
     public void remove(){
         synchronized(ScriptManager.getInstance()){
             try {
-                cx.exit();
+                if(cx!= null)cx.exit();
                 this.join();
             } catch (InterruptedException e) {
                 e.printStackTrace();

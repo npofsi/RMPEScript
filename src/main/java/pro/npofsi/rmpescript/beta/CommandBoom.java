@@ -31,6 +31,7 @@ public class CommandBoom extends CommandBase {
             EntityPlayer player = (EntityPlayer) sender;
             // 接下来的代码我直接抄的Szszss的教程: http://www.hakugyokurou.net/wordpress/?p=225
             // 这串代码可以获取玩家周围一定范围的生物列表
+            
             List list = player.world.getEntitiesWithinAABB(EntityLiving.class, new AxisAlignedBB((double)player.posX - 30D, (double)player.posY - 20D, (double)player.posZ - 30D, (double)player.posX + 30D, (double)player.posY + 20D, (double)player.posZ + 30D));
             // 使用Iterator遍历list
             for (Iterator iterator = list.iterator(); iterator.hasNext();) {
