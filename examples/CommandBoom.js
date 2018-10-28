@@ -1,6 +1,7 @@
 //这里可以使用 rhino 对于的 interface 的简单写法
 var commandCallback=new _RMPE.command.CommandInstance.Callback({
 	"execute":function(server,sender,args){
+		//TODO
 		Level.explode(sender.posX,sender.posY,sender.posZ,10);
 	}
 });
