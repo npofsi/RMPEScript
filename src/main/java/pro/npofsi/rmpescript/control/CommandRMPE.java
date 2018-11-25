@@ -6,6 +6,7 @@ import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.TextComponentString;
+import pro.npofsi.rmpescript.RMPEScript;
 import pro.npofsi.rmpescript.runtime.ScriptFileManager;
 import pro.npofsi.rmpescript.runtime.ScriptManager;
 
@@ -24,6 +25,10 @@ public class CommandRMPE extends CommandBase {
     @Override
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
         switch (args[0]){
+            case "help":{
+
+                break;
+            }
             case "init":{
                 ScriptFileManager.getInstance().refresh();
                 ScriptManager.getInstance().runAllScripts(null);
@@ -32,7 +37,7 @@ public class CommandRMPE extends CommandBase {
             case "run":{
                 String label=ScriptManager.getInstance().loadScript("eval_cache",ScriptManager.getInstance().concat(args[1]));
                 ScriptManager.getInstance().runScript(label);
-                Minecraft.getMinecraft().player.sendMessage(new TextComponentString("Code running in <"+label+">"));
+                RMPEScript.Intent.getServer().sendMessage(new TextComponentString("Code running in <"+label+">"));
                 break;
             }
             case "eval":{
@@ -40,7 +45,10 @@ public class CommandRMPE extends CommandBase {
             }
             case "status":{
                 String[] s=ScriptManager.getInstance().getAllStatus();
-                for(int i=0;i<s.length;i++)Minecraft.getMinecraft().player.sendMessage(new TextComponentString(s[i]));
+                for(int i=0;i<s.length;i++ ) RMPEScript.Intent.getServer().sendMessage(new TextComponentString(s[i]));
+                break;
+            }
+            case "reflect":{
                 break;
             }
             default:{

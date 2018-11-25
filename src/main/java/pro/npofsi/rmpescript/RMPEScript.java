@@ -2,6 +2,7 @@ package pro.npofsi.rmpescript;
 
 
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.command.ServerCommandManager;
 import net.minecraft.init.Blocks;
 
@@ -29,6 +30,7 @@ import pro.npofsi.rmpescript.control.CommandRMPE;
 import pro.npofsi.rmpescript.data.DataStore;
 import pro.npofsi.rmpescript.data.FileOperator;
 import pro.npofsi.rmpescript.include.modpe.Level;
+import pro.npofsi.rmpescript.include.modpe.Player;
 import pro.npofsi.rmpescript.runtime.ScriptFileManager;
 import pro.npofsi.rmpescript.runtime.ScriptManager;
 
@@ -75,6 +77,11 @@ public class RMPEScript {
         CommandManager.getInstance().refresh((ServerCommandManager) Intent.getServer().getCommandManager());
         CommandManager.getInstance().register(new CommandRMPE());
         Level.setWorld(event.getServer().getEntityWorld());
+        if(Level.getWorld().playerEntities.size()!=0){
+            Player.setPlayer(Level.getWorld().playerEntities.get(0));
+        }else{
+            RMPEScript.Log.f("currentPlayer is null ,that's may cause error.");
+        }
         FMLEventHandler.getInstance().runCallBack("serverStarting",event);
     }
 
